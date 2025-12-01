@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>東華企管：管理傳奇開端</title>
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 使用 Inter 字體作為通用 sans-serif 字體 -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        
+        /* 自定義 CSS 實現星戰開場字幕效果 */
+        body {
+            /* 模擬星空背景 */
+            background-color: #000; 
+            overflow: hidden; /* 隱藏滾動條 */
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* 視區設定，提供 3D 景深效果 */
+        .crawl-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            perspective: 400px; /* 創造景深 */
+            overflow: hidden; /* 防止內容超出視區 */
+        }
+
+        /* 內容區塊的 3D 變換和動畫 */
+        .crawl-content {
+            position: absolute;
+            width: 80%;
+            margin-left: 10%;
+            bottom: 0; /* 從底部開始 */
+            transform-origin: center 100%;
+            transform: rotateX(20deg) translateZ(0); /* 應用視角傾斜 */
+            animation: crawl 70s linear infinite; /* 卷軸動畫，70秒循環 */
+        }
+
+        /* 動畫內容的文本樣式 */
+        .crawl-text p {
+            font-size: 2rem; /* 字體大小 */
+            line-height: 2.2; /* 行高 */
+            margin-bottom: 2rem;
+            text-align: justify;
+            text-shadow: 0 0 5px rgba(255, 255, 0, 0.7); /* 微弱的黃色光暈 */
+        }
+        
+        /* 卷軸動畫關鍵幀 */
+        @keyframes crawl {
+            0% {
+                top: 100%; /* 從底部開始 */
+                transform: rotateX(20deg) translateY(0);
+            }
+            100% {
+                top: -300%; /* 向上移動至消失點 */
+                transform: rotateX(20deg) translateY(-2000px); /* 實際移動，給予遠去的錯覺 */
+            }
+        }
+
+        /* 經典的開場序號和標題風格 */
+        .intro-title {
+            color: #4ee42c; /* 經典的綠色 */
+            font-size: 3.5rem;
+            animation: intro-fade 5s ease-in-out forwards;
+        }
+        
+        .episode-title {
+            color: #ffde3a; /* 經典的黃色 */
+            font-size: 4.5rem;
+            animation: intro-fade 5s ease-in-out forwards;
+        }
+
+        /* 序號和標題的淡入動畫 */
+        @keyframes intro-fade {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* 手機版適配調整 */
+        @media (max-width: 768px) {
+            .crawl-content {
+                width: 90%;
+                margin-left: 5%;
+            }
+            .crawl-text p {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+            .intro-title {
+                font-size: 2.5rem;
+            }
+            .episode-title {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- 經典的開場標題區塊 -->
+    <div id="intro-sequence" class="absolute inset-0 flex flex-col items-center justify-center text-center z-10 bg-black pointer-events-none">
+        <h1 class="intro-title font-bold mb-4">
+            東華企管
+        </h1>
+        <h2 class="episode-title font-extrabold">
+            領導者的傳送門
+        </h2>
+    </div>
+
+    <!-- 卷軸動畫容器 -->
+    <div class="crawl-container">
+        <div class="crawl-content">
+            <!-- 卷軸文字區塊 -->
+            <div class="crawl-text text-[#ffde3a] font-bold text-center">
+                
+                <!-- 標題部分 -->
+                <p class="text-3xl font-extrabold mb-12">
+                    Episode I<br/>
+                    新世代的管理覺醒
+                </p>
+
+                <!-- 主體內容 -->
+                <p>
+                    在這個瞬息萬變的商業銀河系中，國立東華大學企業管理學系，正為新世代的領導者們，開啟通往無限可能的傳送門。我們相信，未來的管理者，不只需要智慧，更需要跨域的視野、實踐的勇氣，以及對永續發展的堅定信念。
+                </p>
+                
+                <p>
+                    在這一座充滿生機的學術殿堂，正召集來自各星球的熱血青年。在這裡，你將探索浩瀚的商業策略、縝密的決策分析、魅惑人心的行銷奧秘，以及引領團隊前進的領導藝術。我們的師資團隊，如同經驗豐富的絕地大師，將引導你駕馭知識的光劍，解決複雜的商業挑戰。
+                </p>
+                
+                <p>
+                    在絕地大師的引領下，你將拓展星際視野；藉由在地產業的合作實踐，你將理解永續管理的真諦。東華企管，不僅傳授管理知識，更培養你成為具備社會責任、勇於創新的跨界整合人才，為整個商業銀河帶來正向的變革。
+                </p>
+
+                <!-- 結尾句 -->
+                <p class="text-4xl mt-16">
+                    你的管理傳奇，即將在此展開！
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 控制開場動畫（讓標題消失後卷軸才開始） -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const introSequence = document.getElementById('intro-sequence');
+            const crawlContent = document.querySelector('.crawl-content');
+
+            // 初始隱藏卷軸內容，防止在標題淡入時顯示
+            crawlContent.style.visibility = 'hidden';
+
+            // 讓開場標題淡出（動畫時間 5 秒 + 延遲 1 秒 = 6 秒後）
+            setTimeout(() => {
+                introSequence.style.display = 'none'; // 隱藏開場標題
+                crawlContent.style.visibility = 'visible'; // 顯示卷軸內容
+                // 動畫自動啟動 (CSS animation)
+            }, 6000); 
+        });
+    </script>
+
+</body>
+</html>
