@@ -8,12 +8,116 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入 Inter 字體 -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        /* ---------------------------------- */
+        /* 1. Star Wars Crawl 樣式 (開場動畫) */
+        /* ---------------------------------- */
+        #crawl-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000; 
+            overflow: hidden; 
+            font-family: 'Inter', sans-serif;
+            z-index: 999; /* 確保在最上層 */
+            transition: opacity 2s ease-out; /* 淡出效果 */
+        }
+
+        .crawl-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            perspective: 400px; /* 創造景深 */
+            overflow: hidden; 
+        }
+
+        .crawl-content {
+            position: absolute;
+            width: 80%;
+            margin-left: 10%;
+            bottom: 0; /* 保持在底部，作為 3D 旋轉的中心點 */
+            transform-origin: center 100%;
+            /* 只應用 3D 旋轉，起始位置由 @keyframes 控制 */
+            transform: rotateX(20deg) translateZ(0); 
+            animation: crawl 80s linear forwards; /* 延長動畫時間為 80s，確保可讀性 */
+            visibility: hidden; /* 初始隱藏，待標題淡出後再顯示 */
+        }
+
+        .crawl-text p {
+            font-size: 2rem; 
+            line-height: 2.2; 
+            margin-bottom: 2rem;
+            text-align: justify;
+            text-shadow: 0 0 5px rgba(255, 255, 0, 0.7); 
+        }
+        
+        @keyframes crawl {
+            0% {
+                /* Start: 從畫布下方開始 (100vh) */
+                transform: rotateX(20deg) translateY(100vh); 
+            }
+            100% {
+                /* End: 向上移動至遠方消失 (-2000px 確保內容完全離開) */
+                transform: rotateX(20deg) translateY(-2000px); 
+            }
+        }
+
+        .intro-title {
+            color: #4ee42c; 
+            font-size: 3.5rem;
+            animation: intro-fade 5s ease-in-out forwards;
+        }
+        
+        .episode-title {
+            color: #ffde3a; 
+            font-size: 4.5rem;
+            animation: intro-fade 5s ease-in-out forwards;
+        }
+
+        @keyframes intro-fade {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* 手機版適配調整 */
+        @media (max-width: 768px) {
+            .crawl-content {
+                width: 90%;
+                margin-left: 5%;
+            }
+            .crawl-text p {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+            .intro-title {
+                font-size: 2.5rem;
+            }
+            .episode-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* ---------------------------------- */
+        /* 2. 主內容區塊樣式 (說明會資訊) */
+        /* ---------------------------------- */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7f9fb; /* 輕微的背景色 */
+            background-color: #f7f9fb; 
+        }
+
+        /* 確保主內容隱藏直到動畫結束 */
+        #main-content {
+            display: none; 
         }
     </style>
+
+    <!-- Tailwind 設定：使用東華主色調 -->
     <script>
         tailwind.config = {
             theme: {
@@ -28,147 +132,245 @@
         }
     </script>
 </head>
+
 <body class="text-gray-800">
 
-    <!-- 導航列 (簡單標題) -->
-    <header class="bg-white shadow-md sticky top-0 z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <div class="text-xl font-bold text-dh-blue">
-                東華企管 DHBA
-            </div>
-            <!-- 報名按鈕 (在導航列也放置一個) -->
-            <a href="#register" class="px-4 py-2 bg-dh-accent text-dh-blue font-semibold rounded-lg hover:bg-yellow-400 transition duration-300 shadow-md text-sm sm:text-base">
-                立即報名說明會
-            </a>
-        </div>
-    </header>
+    <!-- =========== A. 開場動畫層 (Star Wars Crawl) =========== -->
+    <div id="crawl-layer" class="bg-black text-white">
 
-    <!-- 英雄區塊 (Hero Section) -->
-    <section class="bg-dh-light pt-16 pb-20 sm:pt-24 sm:pb-32 text-center relative overflow-hidden">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 z-10 relative">
-            <h1 class="text-4xl sm:text-6xl font-extrabold text-dh-blue leading-tight mb-4">
-                啟動您的未來管理職涯
+        <!-- 經典的開場標題區塊 -->
+        <div id="intro-sequence" class="absolute inset-0 flex flex-col items-center justify-center text-center z-10 bg-black pointer-events-none">
+            <h1 class="intro-title font-bold mb-4">
+                東華企管
             </h1>
-            <p class="text-xl sm:text-2xl text-dh-blue opacity-90 mb-8">
-                國立東華大學 企業管理學系 碩士班 / 博士班 招生說明會
-            </p>
-            
-            <!-- 說明會核心資訊卡片 -->
-            <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-2xl inline-block max-w-lg w-full transform hover:scale-[1.02] transition duration-500 ease-in-out">
-                <p class="text-sm font-semibold text-dh-blue mb-2 uppercase">主動掌握，立即行動</p>
-                <div class="flex flex-col space-y-4">
-                    <div class="flex items-center justify-center space-x-3 text-lg sm:text-xl font-medium text-gray-700">
-                        <!-- Icon: Calendar -->
-                        <svg class="w-6 h-6 text-dh-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        <span>日期：2<span class="font-bold text-dh-blue">024 年 11 月 30 日</span>（六）</span>
-                    </div>
-                    <div class="flex items-center justify-center space-x-3 text-lg sm:text-xl font-medium text-gray-700">
-                        <!-- Icon: Clock -->
-                        <svg class="w-6 h-6 text-dh-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <span>時間：下午 <span class="font-bold text-dh-blue">2:00 - 4:00</span></span>
-                    </div>
-                    <div class="flex items-center justify-center space-x-3 text-lg sm:text-xl font-medium text-gray-700">
-                        <!-- Icon: Location/Online -->
-                        <svg class="w-6 h-6 text-dh-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m4 2l4 4m-4-4l-4 4m4-4V4"></path></svg>
-                        <span>地點：<span class="font-bold text-dh-blue">線上 (Google Meet)</span></span>
-                    </div>
-                </div>
+            <h2 class="episode-title font-extrabold">
+                領導者的傳送門
+            </h2>
+        </div>
 
-                <a id="register" href="https://forms.gle/your-registration-link" target="_blank" class="mt-8 inline-block w-full py-3 text-lg font-bold bg-dh-blue text-white rounded-xl shadow-lg hover:bg-blue-800 transition duration-300 transform hover:-translate-y-0.5">
-                    點擊報名，預約成功！
+        <!-- 卷軸動畫容器 -->
+        <div class="crawl-container">
+            <div id="crawl-text-content" class="crawl-content">
+                <!-- 卷軸文字區塊 -->
+                <div class="crawl-text text-[#ffde3a] font-bold text-center">
+                    
+                    <!-- 標題部分 -->
+                    <p class="text-3xl font-extrabold mb-12">
+                        Episode I<br/>
+                        新世代的管理覺醒
+                    </p>
+
+                    <!-- 主體內容 -->
+                    <p>
+                        在這個瞬息萬變的商業銀河系中，國立東華大學企業管理學系，正為新世代的領導者們，開啟通往無限可能的傳送門。我們相信，未來的管理者，不只需要智慧，更需要跨域的視野、實踐的勇氣，以及對永續發展的堅定信念。
+                    </p>
+                    
+                    <p>
+                        在這一座充滿生機的學術殿堂，正召集來自各星球的熱血青年。在這裡，你將探索浩瀚的商業策略、縝密的決策分析、魅惑人心的行銷奧秘，以及引領團隊前進的領導藝術。我們的師資團隊，如同經驗豐富的絕地大師，將引導你駕馭知識的光劍，解決複雜的商業挑戰。
+                    </p>
+                    
+                    <p>
+                        在絕地大師的引領下，你將拓展星際視野；藉由在地產業的合作實踐，你將理解永續管理的真諦。東華企管，不僅傳授管理知識，更培養你成為具備社會責任、勇於創新的跨界整合人才，為整個商業銀河帶來正向的變革。
+                    </p>
+
+                    <!-- 結尾句 -->
+                    <p class="text-4xl mt-16">
+                        你的管理傳奇，即將在此展開！
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- =========== A. 開場動畫層 結束 =========== -->
+
+
+    <!-- =========== B. 說明會主內容層 =========== -->
+    <div id="main-content" class="min-h-screen">
+        
+        <!-- 導航列 (簡單標題) -->
+        <header class="bg-white shadow-md sticky top-0 z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                <div class="text-xl font-bold text-dh-blue">
+                    東華企管 DHBA
+                </div>
+                <!-- 報名按鈕 (在導航列也放置一個) -->
+                <a href="#register" class="px-4 py-2 bg-dh-accent text-dh-blue font-semibold rounded-lg hover:bg-yellow-400 transition duration-300 shadow-md text-sm sm:text-base">
+                    立即報名說明會
                 </a>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- 東華企管特色 -->
-    <section class="py-16 sm:py-24 bg-white">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-dh-blue">
-                DHBA 三大核心優勢
-            </h2>
-            <div class="grid md:grid-cols-3 gap-8">
+        <!-- 英雄區塊 (Hero Section) - 核心資訊 -->
+        <section class="bg-dh-light pt-16 pb-20 sm:pt-24 sm:pb-32 t-center relative overflow-hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 z-10 relative">
+                <h1 class="text-4xl sm:text-6xl font-extrabold text-dh-blue leading-tight mb-4">
+                    啟動您的未來管理職涯
+                </h1>
+                <p class="text-xl sm:text-2xl text-dh-blue opacity-90 mb-8">
+                    國立東華大學 企業管理學系 碩士班 / 博士班 招生說明會
+                </p>
                 
-                <!-- 優勢 1: 永續與責任 -->
-                <div class="p-6 bg-dh-light rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                    <div class="text-dh-blue mb-4">
-                        <!-- Icon: Leaf/Sustainability -->
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <!-- 說明會核心資訊卡片 -->
+                <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-2xl inline-block max-w-lg w-full transform hover:scale-[1.02] transition duration-500 ease-in-out">
+                    <p class="text-sm font-semibold text-dh-blue mb-2 uppercase">主動掌握，立即行動</p>
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex items-center justify-center space-x-3 text-lg sm:text-xl font-medium text-gray-700">
+                            <!-- Icon: Calendar -->
+                            <svg class="w-6 h-6 text-dh-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span>日期：2<span class="font-bold text-dh-blue">024 年 11 月 30 日</span>（六）</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-3 text-lg sm:text-xl font-medium text-gray-700">
+                            <!-- Icon: Clock -->
+                            <svg class="w-6 h-6 text-dh-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>時間：下午 <span class="font-bold text-dh-blue">2:00 - 4:00</span></span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-3 text-lg sm:text-xl font-medium text-gray-700">
+                            <!-- Icon: Location/Online -->
+                            <svg class="w-6 h-6 text-dh-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m4 2l4 4m-4-4l-4 4m4-4V4"></path></svg>
+                            <span>地點：<span class="font-bold text-dh-blue">線上 (Google Meet)</span></span>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dh-blue">永續經營與 ESG 實踐</h3>
-                    <p class="text-gray-600">
-                        面對全球綠色浪潮，我們深入探討企業社會責任 (CSR) 與 ESG 議題。課程結合財務、策略與永續報告，培養具備綠色競爭力的管理人才。
-                    </p>
-                </div>
 
-                <!-- 優勢 2: 數位轉型 -->
-                <div class="p-6 bg-dh-light rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                    <div class="text-dh-blue mb-4">
-                        <!-- Icon: Code/Digital -->
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L12 20.25L14.25 17M12 14v6.75M12 6.75a4.5 4.5 0 100 9 4.5 4.5 0 000-9z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dh-blue">數據驅動與數位創新</h3>
-                    <p class="text-gray-600">
-                        掌握大數據分析、人工智慧與資訊系統在企業管理中的應用。透過實戰案例，訓練您將數據轉化為決策優勢，引領組織進行數位轉型。
-                    </p>
-                </div>
-
-                <!-- 優勢 3: 國際視野 -->
-                <div class="p-6 bg-dh-light rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                    <div class="text-dh-blue mb-4">
-                        <!-- Icon: Globe/Global -->
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h2M9 5h6M19 5h2M7 9h10M3 13h18M5 17h2M17 17h2M3 21h18"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dh-blue">跨域整合與國際交換</h3>
-                    <p class="text-gray-600">
-                        課程設計強調管理學、經濟學與法律的跨領域整合。提供豐富的海外交換機會，助您建立國際人脈，具備全球競爭力。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 報名區塊 (Call to Action) - 再次強調 -->
-    <section class="py-16 bg-dh-blue">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
-                您的管理菁英之路，從東華開始
-            </h2>
-            <p class="text-xl text-dh-light mb-8">
-                參加說明會，與教授一對一交流，深入了解學系最新發展與入學要求！
-            </p>
-            <a href="#register" class="inline-block px-12 py-4 bg-dh-accent text-dh-blue text-xl font-bold rounded-full shadow-2xl hover:bg-yellow-400 transition duration-300 transform hover:scale-105">
-                點擊報名說明會
-            </a>
-        </div>
-    </section>
-    
-    <!-- 聯繫資訊/Footer -->
-    <footer class="bg-gray-800 text-white py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
-            <div class="grid sm:grid-cols-3 gap-8 border-b border-gray-700 pb-6 mb-6">
-                <div>
-                    <h4 class="text-lg font-bold mb-3 text-dh-accent">國立東華大學</h4>
-                    <p class="text-sm">管理學院 企業管理學系</p>
-                    <p class="text-sm">974301 花蓮縣壽豐鄉大學路二段 1 號</p>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-3 text-dh-accent">聯繫方式</h4>
-                    <p class="text-sm">電話：(03) 890-3023</p>
-                    <p class="text-sm">Email：dhba@ndhu.edu.tw</p>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-3 text-dh-accent">學系網頁</h4>
-                    <a href="https://www.dhba.ndhu.edu.tw/" target="_blank" class="text-sm hover:underline">
-                        https://www.dhba.ndhu.edu.tw/
+                    <a id="register" href="https://forms.gle/your-registration-link" target="_blank" class="mt-8 inline-block w-full py-3 text-lg font-bold bg-dh-blue text-white rounded-xl shadow-lg hover:bg-blue-800 transition duration-300 transform hover:-translate-y-0.5">
+                        點擊報名，預約成功！
                     </a>
                 </div>
             </div>
-            <p class="text-center text-sm text-gray-400">
-                &copy; 2024 國立東華大學 企業管理學系 版權所有
-            </p>
-        </div>
-    </footer>
+        </section>
+
+        <!-- 東華企管特色 -->
+        <section class="py-16 sm:py-24 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-dh-blue">
+                    DHBA 三大核心優勢
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- 優勢 1: 永續與責任 -->
+                    <div class="p-6 bg-dh-light rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        <div class="text-dh-blue mb-4">
+                            <!-- Icon: Leaf/Sustainability -->
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-dh-blue">永續經營與 ESG 實踐</h3>
+                        <p class="text-gray-600">
+                            面對全球綠色浪潮，我們深入探討企業社會責任 (CSR) 與 ESG 議題。課程結合財務、策略與永續報告，培養具備綠色競爭力的管理人才。
+                        </p>
+                    </div>
+
+                    <!-- 優勢 2: 數位轉型 -->
+                    <div class="p-6 bg-dh-light rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        <div class="text-dh-blue mb-4">
+                            <!-- Icon: Code/Digital -->
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L12 20.25L14.25 17M12 14v6.75M12 6.75a4.5 4.5 0 100 9 4.5 4.5 0 000-9z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-dh-blue">數據驅動與數位創新</h3>
+                        <p class="text-gray-600">
+                            掌握大數據分析、人工智慧與資訊系統在企業管理中的應用。透過實戰案例，訓練您將數據轉化為決策優勢，引領組織進行數位轉型。
+                        </p>
+                    </div>
+
+                    <!-- 優勢 3: 國際視野 -->
+                    <div class="p-6 bg-dh-light rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        <div class="text-dh-blue mb-4">
+                            <!-- Icon: Globe/Global -->
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h2M9 5h6M19 5h2M7 9h10M3 13h18M5 17h2M17 17h2M3 21h18"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-dh-blue">跨域整合與國際交換</h3>
+                        <p class="text-gray-600">
+                            課程設計強調管理學、經濟學與法律的跨領域整合。提供豐富的海外交換機會，助您建立國際人脈，具備全球競爭力。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 報名區塊 (Call to Action) - 再次強調 -->
+        <section class="py-16 bg-dh-blue">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    您的管理菁英之路，從東華開始
+                </h2>
+                <p class="text-xl text-dh-light mb-8">
+                    參加說明會，與教授一對一交流，深入了解學系最新發展與入學要求！
+                </p>
+                <a href="#register" class="inline-block px-12 py-4 bg-dh-accent text-dh-blue text-xl font-bold rounded-full shadow-2xl hover:bg-yellow-400 transition duration-300 transform hover:scale-105">
+                    點擊報名說明會
+                </a>
+            </div>
+        </section>
+        
+        <!-- 聯繫資訊/Footer -->
+        <footer class="bg-gray-800 text-white py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+                <div class="grid sm:grid-cols-3 gap-8 border-b border-gray-700 pb-6 mb-6">
+                    <div>
+                        <h4 class="text-lg font-bold mb-3 text-dh-accent">國立東華大學</h4>
+                        <p class="text-sm">管理學院 企業管理學系</p>
+                        <p class="text-sm">974301 花蓮縣壽豐鄉大學路二段 1 號</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-3 text-dh-accent">聯繫方式</h4>
+                        <p class="text-sm">電話：(03) 890-3023</p>
+                        <p class="text-sm">Email：dhba@ndhu.edu.tw</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-3 text-dh-accent">學系網頁</h4>
+                        <a href="https://www.dhba.ndhu.edu.tw/" target="_blank" class="text-sm hover:underline">
+                            https://www.dhba.ndhu.edu.tw/
+                        </a>
+                    </div>
+                </div>
+                <p class="text-center text-sm text-gray-400">
+                    &copy; 2024 國立東華大學 企業管理學系 版權所有
+                </p>
+            </div>
+        </footer>
+
+    </div>
+    <!-- =========== B. 說明會主內容層 結束 =========== -->
+
+    <!-- JavaScript 控制開場動畫與切換 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const crawlLayer = document.getElementById('crawl-layer');
+            const crawlContent = document.getElementById('crawl-text-content');
+            const mainContent = document.getElementById('main-content');
+            const introSequence = document.getElementById('intro-sequence');
+            
+            // 確保主內容初始是隱藏的
+            mainContent.style.display = 'none';
+            crawlLayer.style.opacity = '1';
+
+            // 1. 先處理標題淡入淡出
+            // 動畫設定約 5s 完成淡入淡出，我們在 5.5 秒時讓標題消失
+            const titleFadeDurationMs = 5500; 
+
+            setTimeout(() => {
+                introSequence.style.display = 'none'; // 隱藏標題
+                crawlContent.style.visibility = 'visible'; // 顯示滾動字幕，動畫自動啟動
+            }, titleFadeDurationMs);
+
+            // 2. 處理整個開場的結束和切換
+            // 總共 12 秒後開始淡出，讓字幕有約 6.5 秒的滾動時間
+            const totalIntroDurationMs = 30000; 
+
+            setTimeout(() => {
+                // 整個開場層開始淡出
+                crawlLayer.style.opacity = '0';
+                
+                // 延遲 2 秒（配合 CSS transition: opacity 2s）後徹底隱藏開場層，並顯示主內容
+                setTimeout(() => {
+                    crawlLayer.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    
+                    // 確保視窗回到頁面頂部
+                    window.scrollTo(0, 0); 
+                }, 2000); 
+
+            }, totalIntroDurationMs); 
+        });
+    </script>
 
 </body>
 </html>
