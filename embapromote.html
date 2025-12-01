@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國立東華大學企業管理學系 招生說明會</title>
+    <!-- 載入 Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- 使用 Inter 字體 --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc; /* Tailwind: bg-slate-50 */
+            margin: 0;
+            overflow-x: hidden; /* 防止橫向滾動 */
+        }
+        /* 定義主色調 (Primary Green: Emerald 600) */
+        .color-primary {
+            background-color: #059669; /* Emerald 600 */
+        }
+        .text-primary {
+            color: #059669;
+        }
+        /* 定義強調色調 (Accent Yellow: Amber 400) */
+        .color-accent {
+            background-color: #fbbf24; /* Amber 400 */
+        }
+        .text-accent {
+            color: #fbbf24;
+        }
+        /* 自定義按鈕陰影，與主色調匹配 */
+        .btn-shadow {
+            /* Shadow color matches Emerald 600 */
+            box-shadow: 0 4px 6px rgba(5, 150, 105, 0.3), 0 1px 3px rgba(5, 150, 105, 0.1);
+        }
+        /* FAQ 內容區塊的初始樣式 */
+        .faq-content {
+            max-height: 0; /* 隱藏內容並為展開動畫做準備 */
+            transition: max-height 0.5s ease-in-out;
+            overflow: hidden;
+        }
+
+        /* --- 星際大戰開場字幕樣式 START --- */
+        .star-wars-intro-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* 佔滿整個視窗 */
+            overflow: hidden;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000; /* 確保在最上層 */
+        }
+
+        .star-wars-intro-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Milky_Way_Galaxy_at_night.jpg/1280px-Milky_Way_Galaxy_at_night.jpg') no-repeat center center/cover; /* 星空背景圖 */
+            opacity: 0.6; /* 稍微透明 */
+            z-index: -1;
+        }
+
+        .intro-text {
+            color: #4CAF50; /* 綠色，呼應東華企管主色 */
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 3s ease-out forwards;
+            margin-bottom: 3rem; /* 與字幕區塊分隔 */
+        }
+
+        .title-card {
+            color: #fbbf24; /* 琥珀色作為強調 */
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInOut 8s ease-in-out forwards; /* 緩慢淡入淡出 */
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        .crawl {
+            position: absolute;
+            top: 100%; /* 從下方開始 */
+            width: 80%;
+            height: 200vh; /* 確保足夠長度滾動 */
+            font-size: 2.5vw; /* 響應式字體大小 */
+            line-height: 1.5;
+            text-align: justify;
+            color: #fbbf24; /* 琥珀色 */
+            transform-origin: 50% 100%; /* 以底部為中心點旋轉 */
+            /* 修正為總時長 20 秒 (9s 延遲 + 11s 持續時間) */
+            animation: crawl 11s linear forwards 9s; 
+            z-index: 1;
+        }
+
+        .crawl-content {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding-bottom: 200px; /* 確保內容能完全滾動出去 */
+        }
+
+        .crawl p {
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes crawl {
+            0% { top: 100%; }
+            100% { top: -200%; } /* 滾動到完全消失 */
+        }
+
+        /* 隱藏其他內容，直到字幕結束 */
+        .content-after-intro {
+            display: none;
+        }
+        /* 當 intro-done 被加入 body 時，顯示其他內容並隱藏動畫容器 */
+        .intro-done .content-after-intro {
+            display: block;
+        }
+        .intro-done .star-wars-intro-container {
+            display: none; /* 隱藏開場動畫容器 */
+        }
+        /* --- 星際大戰開場字幕樣式 END --- */
+    </style>
+</head>
+<body>
+
+    <!-- 星際大戰開場字幕區塊 --><div class="star-wars-intro-container" id="starWarsIntro">
+        <div class="intro-text">
+            東華企管 榮耀呈現
+        </div>
+
+        <div class="title-card">
+            NDHU BUSINESS ADMINISTRATION
+            <br>
+            <span class="text-3xl font-normal">新世代管理人才 召募令</span>
+        </div>
+
+        <div class="crawl">
+            <div class="crawl-content">
+                <p class="text-center font-bold text-4xl mb-8">
+                    EPISODE III<br>
+                    東華企管：創新管理崛起
+                </p>
+
+                <p>
+                    在這個瞬息萬變的商業銀河系中，國立東華大學企業管理學系，正為新世代的領導者們，開啟通往無限可能的傳送門。我們相信，未來的管理者，不只需要智慧，更需要跨域的視野、實踐的勇氣，以及對永續發展的堅定信念。
+                </p>
+
+                <p>
+                    遠在花東縱谷深處，一座充滿生機的學術殿堂，正召集來自各星球的熱血青年。在這裡，你將探索浩瀚的商業策略、精密的財務分析、魅惑人心的行銷奧秘，以及引領團隊前進的領導藝術。我們的師資團隊，如同經驗豐富的絕地大師，將引導你駕馭知識的光劍，解決複雜的商業挑戰。
+                </p>
+
+                <p>
+                    透過與國際頂尖學府的交流，你將拓展星際視野；藉由在地產業的合作實踐，你將理解永續管理的真諦。東華企管，不僅傳授管理知識，更培養你成為具備社會責任、勇於創新的跨界整合人才，為整個商業銀河帶來正向的變革。
+                </p>
+
+                <p class="text-center font-bold text-3xl mt-10">
+                    你的管理傳奇，即將在此展開！
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頂部導覽列 (簡單版本) - 在開場後顯示 --><header class="bg-white shadow-md sticky top-0 z-10 content-after-intro">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-extrabold text-primary">
+                國立東華大學 企管系
+            </h1>
+            <a href="#register" class="color-primary text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#047857] transition duration-300 btn-shadow hidden sm:inline-block">
+                立即報名說明會
+            </a>
+        </div>
+    </header>
+
+    <main class="content-after-intro">
+        <!-- 英雄區塊 (此處為原本的內容，現在在開場後顯示) --><section class="color-primary text-white py-16 md:py-24">
+            <div class="max-w-5xl mx-auto px-4 text-center">
+                <p class="text-xl md:text-2xl mb-4 font-light text-accent">2024/2025 招生季</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
+                成就無可取代的自己，<br class="sm:hidden">從東華企管開始！
+                </h2>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 opacity-90">
+                    在花東的創新搖籃，培養跨界整合能力，成為具備國際視野與社會責任的新世代管理人才。
+                </p>
+
+                <!-- 說明會快速資訊 --><div class="bg-white text-gray-800 p-6 md:p-8 rounded-xl shadow-2xl inline-block max-w-sm mx-auto transform hover:scale-[1.02] transition duration-500">
+                    <p class="text-2xl font-bold mb-3 text-primary">招生說明會</p>
+                    <p class="text-lg mb-1 font-semibold">日期：<span class="text-accent font-extrabold">2025 年 12 月 10 日 (二)</span></p>
+                    <p class="text-lg mb-4 font-semibold">時間：<span class="text-accent font-extrabold">晚上 7:30 - 9:00</span></p>
+                    <a href="#register" class="color-accent text-gray-900 font-bold px-8 py-3 rounded-full text-lg hover:bg-[#f59e0b] transition duration-300 mt-4 inline-block btn-shadow">
+                        免費預約席次
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 課程特色與優勢 --><section class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+                東華企管，給你不一樣的視野
+            </h3>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 特色卡片 1 --><div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                    <div class="text-4xl text-primary mb-4">
+                        <!-- 創新思維圖示 (Inline SVG for simplicity) --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-gray-900">實務導向與創新</h4>
+                    <p class="text-gray-600">
+                        課程緊密結合最新商業趨勢，透過企業參訪、個案分析及專案實作，讓你畢業即具備業界即戰力。
+                    </p>
+                </div>
+
+                <!-- 特色卡片 2 --><div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                    <div class="text-4xl text-primary mb-4">
+                        <!-- 國際視野圖示 --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21v-4.5m0 0V14m0 0V9m0 0V5m0 0h.01M5.88 12.55A8.98 8.98 0 013 12a9 9 0 0118 0c0 .92-.16 1.8-.46 2.62M12 9V5m0 4h.01M12 9v5m0 0h.01M12 14v3m0 0h.01M12 17v4.5" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-gray-900">國際接軌與花東魅力</h4>
+                    <p class="text-gray-600">
+                        與多國知名大學有交換計畫。同時，利用花東獨特的自然與文化資源，發展永續、觀光及在地創業管理。
+                    </p>
+                </div>
+
+                <!-- 特色卡片 3 --><div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                    <div class="text-4xl text-primary mb-4">
+                        <!-- 小班教學圖示 --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.668.277 9.778 9.778 0 002.731-.417A9.01 9.01 0 0012 20.897a9.01 9.01 0 00-8.411-9.982 9.778 9.778 0 002.731.417 9.38 9.38 0 002.668-.277" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15a4 4 0 100-8 4 4 0 000 8z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.5 17.5a6.5 6.5 0 01-11 0" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-gray-900">導師制度與個人化發展</h4>
+                    <p class="text-gray-600">
+                        提供緊密的導師制度，教授將親自指導，協助您探索職涯興趣，制定最適合您的學習與發展藍圖。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心課程與職涯展望 --><section class="bg-white py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <!-- 左側：核心課程 --><div>
+                        <h3 class="text-3xl font-bold mb-4 text-primary border-l-4 border-accent pl-3">核心課程領域</h3>
+                        <p class="text-gray-600 mb-6">我們提供紮實的基礎訓練，並涵蓋管理學所有關鍵面向：</p>
+                        <ul class="space-y-4 text-lg text-gray-700">
+                            <li class="flex items-center">
+                                <span class="text-accent text-2xl mr-3 font-bold">•</span>
+                                策略管理與組織行為
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-accent text-2xl mr-3 font-bold">•</span>
+                                行銷與消費者分析
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-accent text-2xl mr-3 font-bold">•</span>
+                                財務報表與投資決策
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-accent text-2xl mr-3 font-bold">•</span>
+                                人力資源管理與領導力
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-accent text-2xl mr-3 font-bold">•</span>
+                                營運管理與數位轉型
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右側：職涯展望 --><div>
+                        <h3 class="text-3xl font-bold mb-4 text-primary border-l-4 border-accent pl-3">職涯展望</h3>
+                        <p class="text-gray-600 mb-6">畢業生在各行各業中表現卓越，可擔任多種高潛力職位：</p>
+                        <div class="grid grid-cols-2 gap-4 text-sm font-medium text-center">
+                            <div class="p-4 bg-slate-50 rounded-lg shadow-sm hover:bg-slate-100 transition">
+                                <p class="text-lg text-gray-800">行銷企劃師</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-lg shadow-sm hover:bg-slate-100 transition">
+                                <p class="text-lg text-gray-800">人資專員/經理</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-lg shadow-sm hover:bg-slate-100 transition">
+                                <p class="text-lg text-gray-800">金融分析師</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-lg shadow-sm hover:bg-slate-100 transition">
+                                <p class="text-lg text-gray-800">專案管理師</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 常見問題 FAQ (Accordion) --><section class="py-16 md:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+                常見問題 (FAQ)
+            </h3>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 --><div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                    <button class="w-full text-left font-semibold text-lg flex justify-between items-center text-primary faq-toggle">
+                        <span>Q1: 東華企管的特色與其他學校有何不同？</span>
+                        <span class="faq-icon transform transition duration-300 rotate-0">
+                            <!-- 下箭頭 SVG --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-content mt-4">
+                        <p class="pt-2 text-gray-600 border-t border-gray-200">
+                            A: 東華企管強調「在地連結與國際視野」的結合。我們除了紮實的專業訓練外，更利用花東的獨特優勢，發展永續管理、文化觀光及在地創業等特色課程，鼓勵學生走出教室，結合實務，培養具備社會責任的管理人才。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 --><div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                    <button class="w-full text-left font-semibold text-lg flex justify-between items-center text-primary faq-toggle">
+                        <span>Q2: 畢業後的職涯發展如何？</span>
+                        <span class="faq-icon transform transition duration-300 rotate-0">
+                            <!-- 下箭頭 SVG --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-content mt-4">
+                        <p class="pt-2 text-gray-600 border-t border-gray-200">
+                            A: 我們的畢業生在金融服務業、科技製造業、零售流通業、觀光旅遊業等領域皆有傑出表現。許多校友擔任中高階主管、創業家或繼續深造於國內外頂尖大學。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 --><div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                    <button class="w-full text-left font-semibold text-lg flex justify-between items-center text-primary faq-toggle">
+                        <span>Q3: 報名說明會後會收到什麼資訊？</span>
+                        <span class="faq-icon transform transition duration-300 rotate-0">
+                            <!-- 下箭頭 SVG --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-content mt-4">
+                        <p class="pt-2 text-gray-600 border-t border-gray-200">
+                            A: 您將會在說明會開始前 24 小時收到包含線上會議連結 (Google Meet / Zoom 等) 的電子郵件提醒，以及電子版的招生簡介。
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+
+        <!-- 說明會報名區塊 (Registration/CTA Section) --><section id="register" class="color-accent py-16 md:py-24">
+            <div class="max-w-xl mx-auto px-4">
+                <div class="bg-white p-8 md:p-10 rounded-xl shadow-2xl text-center">
+                    <h3 class="text-3xl font-bold mb-3 text-gray-900">立即報名招生說明會</h3>
+                    <p class="text-lg text-gray-600 mb-6">名額有限，請盡早填寫資料以保留您的席次！</p>
+
+                    <!-- 詳細資訊卡片 --><div class="bg-primary text-white p-5 rounded-lg mb-8 shadow-md">
+                        <p class="text-xl font-bold mb-2">日期：2025 年 12 月 10 日 (二)</p>
+                        <p class="text-lg font-medium mb-2">時間：19:30 ~ 21:00 (台灣時間)</p>
+                        <p class="text-lg font-medium">地點：<span class="font-light">線上會議 (連結將於會前寄送)</span></p>
+                    </div>
+
+                    <!-- 報名表單 (非實際功能，僅作 UI 演示) --><form onsubmit="event.preventDefault(); window.showConfirmation();">
+                        <input type="text" placeholder="您的姓名" required class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                        <input type="email" placeholder="電子郵件 (重要：將用於寄送連結)" required class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                        <select class="w-full p-3 mb-6 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                            <option value="">您目前的身分？</option>
+                            <option value="highschool">高中職學生</option>
+                            <option value="parent">家長</option>
+                            <option value="teacher">老師</option>
+                            <option value="other">其他</option>
+                        </select>
+                        <button type="submit" class="w-full color-primary text-white font-bold text-xl py-3 rounded-lg hover:bg-[#047857] transition duration-300 btn-shadow">
+                            確認報名
+                        </button>
+                    </form>
+
+                    <!-- 報名成功訊息框 (初始隱藏) --><div id="confirmationMessage" class="hidden mt-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">報名成功！</strong>
+                        <span class="block sm:inline">感謝您的報名，說明會連結將會寄至您的電子郵件信箱。</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁腳 --><footer class="bg-gray-800 text-white py-10 content-after-intro">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h5 class="text-xl font-bold mb-3">國立東華大學 企業管理學系 (NDHU BA)</h5>
+            <p class="text-sm mb-2">地址：花蓮縣壽豐鄉大學路二段 1 號 (管理學院)</p>
+            <p class="text-sm mb-4">聯絡電話：(03) 890-3000 | E-mail: ba@mail.ndhu.edu.tw</p>
+            <p class="text-xs text-gray-400">© 2025 國立東華大學企業管理學系 版權所有</p>
+        </div>
+    </footer>
+
+    <script>
+        // 確保在 DOM 加載完成後執行
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 報名表單確認邏輯 ---
+            /**
+             * 模擬報名成功後的提示訊息。
+             * 實際應用中，此處應替換為發送表單數據到後端API。
+             * 將此函數附加到 window，以便 HTML 中的 onsubmit 可以調用。
+             */
+            window.showConfirmation = function() {
+                const confirmation = document.getElementById('confirmationMessage');
+                const form = confirmation.closest('div').querySelector('form');
+                
+                if (!form.checkValidity()) {
+                    // 如果表單無效，讓瀏覽器顯示默認錯誤提示
+                    form.reportValidity();
+                    return;
+                }
+
+                // 隱藏報名按鈕並顯示確認訊息
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = '已報名';
+                // 將按鈕背景色改為灰色，表示已禁用
+                submitButton.classList.remove('color-primary', 'hover:bg-[#047857]');
+                submitButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+
+                confirmation.classList.remove('hidden');
+                
+                // 滾動到訊息位置
+                confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // 實際應用中，您會在這裡發送數據
+                console.log("Form submitted and confirmation displayed (Mock success).");
+            }
+
+            // --- FAQ 摺疊互動邏輯 (Accordion) ---
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+
+            faqToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const content = toggle.nextElementSibling;
+                    const icon = toggle.querySelector('.faq-icon');
+                    
+                    // 關閉其他已開啟的項目 (讓只有一個項目展開)
+                    faqToggles.forEach(otherToggle => {
+                        if (otherToggle !== toggle) {
+                            const otherContent = otherToggle.nextElementSibling;
+                            const otherIcon = otherToggle.querySelector('.faq-icon');
+                            if(otherContent.style.maxHeight) {
+                                otherContent.style.maxHeight = null;
+                                otherIcon.classList.remove('rotate-180');
+                            }
+                        }
+                    });
+
+                    // 切換當前項目
+                    if (content.style.maxHeight) {
+                        // 關閉：將 max-height 設為 null (會透過 CSS 過渡到 0)
+                        content.style.maxHeight = null; 
+                        icon.classList.remove('rotate-180');
+                    } else {
+                        // 展開：設置 scrollHeight + "px" 確保內容完全顯示，並觸發 CSS 過渡
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.classList.add('rotate-180');
+                    }
+                });
+            });
+
+            // --- 星戰開場動畫結束邏輯 (Intro Completion) ---
+            // 動畫總時間: 9s (delay) + 11s (duration) = 20s。設置 20 秒後切換。
+            const totalAnimationDuration = 20000; 
+
+            setTimeout(() => {
+                // 將 intro-done class 加入 body 以顯示主體內容
+                document.body.classList.add('intro-done');
+                
+                // 隱藏開場容器 (雖然 CSS 也有處理，但這是雙重保險)
+                const introContainer = document.getElementById('starWarsIntro');
+                if (introContainer) {
+                    introContainer.style.display = 'none';
+                }
+
+                // 滾動到第一個內容區塊
+                const firstSection = document.querySelector('main section');
+                if (firstSection) {
+                    // 使用 setTimeout 確保 DOM 渲染完畢後再滾動
+                    setTimeout(() => {
+                        firstSection.scrollIntoView({ behavior: 'smooth' });
+                    }, 100); 
+                }
+            }, totalAnimationDuration);
+        });
+    </script>
+
+</body>
+</html>
