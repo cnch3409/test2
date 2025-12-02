@@ -42,7 +42,7 @@
             margin-left: 10%;
             bottom: 0; /* 保持在底部，作為 3D 旋轉的中心點 */
             transform-origin: center 100%;
-            animation: crawl 38s linear forwards; /* **CSS 動畫時間：38s** */
+            animation: crawl 40s linear forwards; /* **CSS 動畫時間：38s** */
             transform: rotateX(20deg) translateZ(0); 
             visibility: hidden; /* 初始隱藏，待標題淡出後再顯示 */
         }
@@ -58,7 +58,7 @@
         @keyframes crawl {
             0% {
                 /* Start: 調整為 300vh，確保字幕從最底端視窗外開始滾動 */
-                transform: rotateX(20deg) translateY(300vh); 
+                transform: rotateX(20deg) translateY(180vh); 
             }
             100% {
                 /* End: 向上移動至遠方消失 */
@@ -261,7 +261,7 @@
             <!-- 背景圖片 (使用佔位符) -->
             <div class="absolute inset-0 bg-cover bg-center transition duration-500"
                  style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczNO2IbdsjuT0pdI0D-YYrW8_oHLWb26oztheE4gLNWH_tjHKZlku1F2Gg5EgsKADSavj-lHmwlRzOiFaWarNWBKk4mass8OqsswfHyNFKhraynin4z4=w1200');"
-                 alt="[東華企管系師資團隊大合照]">
+                 alt="">
             </div>
 
             <!-- 疊加層 (Overlay) 確保文字可讀性，使用深綠色調 -->
@@ -584,7 +584,7 @@
 
             // 1. 先處理標題淡入淡出
             // 動畫設定約 3s 完成淡入淡出。
-            const titleFadeDurationMs = 3000; // 已改為 3000 毫秒
+            const titleFadeDurationMs = 3000; // 從 1000 毫秒改為 3000 毫秒
 
             setTimeout(() => {
                 introSequence.style.display = 'none'; // 隱藏標題
@@ -593,7 +593,7 @@
 
             // 2. 處理整個開場的結束和切換
             // CSS 淡出時間為 2s。CSS 動畫時間是 38s。
-            const totalIntroDurationMs = 29000; // 已改為 29000 毫秒
+            const totalIntroDurationMs = 20000; 
 
             setTimeout(() => {
                 // 整個開場層開始淡出
