@@ -69,13 +69,13 @@
         .intro-title {
             color: #4ee42c; 
             font-size: 3.5rem;
-            animation: intro-fade 5s ease-in-out forwards; /* 調整回 5s */
+            animation: intro-fade 5s ease-in-out forwards; 
         }
         
         .episode-title {
             color: #ffde3a; 
             font-size: 4.5rem;
-            animation: intro-fade 5s ease-in-out forwards; /* 調整回 5s */
+            animation: intro-fade 5s ease-in-out forwards; 
         }
 
         @keyframes intro-fade {
@@ -583,8 +583,8 @@
             crawlLayer.style.opacity = '1';
 
             // 1. 先處理標題淡入淡出
-            // 動畫設定約 5s 完成淡入淡出。我們在 5.0 秒時讓標題消失，並顯示滾動字幕。
-            const titleFadeDurationMs = 5000; // 調整回 5.0 seconds
+            // 動畫設定約 5s 完成淡入淡出。
+            const titleFadeDurationMs = 5000; // 調整為 5000 毫秒
 
             setTimeout(() => {
                 introSequence.style.display = 'none'; // 隱藏標題
