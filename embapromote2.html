@@ -69,13 +69,13 @@
         .intro-title {
             color: #4ee42c; 
             font-size: 3.5rem;
-            animation: intro-fade 5s ease-in-out forwards; 
+            animation: intro-fade 3s ease-in-out forwards; /* CSS 動畫時間：已改為 3s */
         }
         
         .episode-title {
             color: #ffde3a; 
             font-size: 4.5rem;
-            animation: intro-fade 5s ease-in-out forwards; 
+            animation: intro-fade 3s ease-in-out forwards; /* CSS 動畫時間：已改為 3s */
         }
 
         @keyframes intro-fade {
@@ -583,8 +583,8 @@
             crawlLayer.style.opacity = '1';
 
             // 1. 先處理標題淡入淡出
-            // 動畫設定約 5s 完成淡入淡出。
-            const titleFadeDurationMs = 5000; 
+            // 動畫設定約 3s 完成淡入淡出。
+            const titleFadeDurationMs = 3000; // 已改為 3000 毫秒
 
             setTimeout(() => {
                 introSequence.style.display = 'none'; // 隱藏標題
@@ -593,7 +593,7 @@
 
             // 2. 處理整個開場的結束和切換
             // CSS 淡出時間為 2s。CSS 動畫時間是 38s。
-            const totalIntroDurationMs = 31000; // 調整回 31000 毫秒
+            const totalIntroDurationMs = 29000; // 已改為 29000 毫秒
 
             setTimeout(() => {
                 // 整個開場層開始淡出
