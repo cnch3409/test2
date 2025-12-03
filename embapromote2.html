@@ -58,7 +58,7 @@
         @keyframes crawl {
             0% {
                 /* Start: 調整為 300vh，確保字幕從最底端視窗外開始滾動 */
-                transform: rotateX(20deg) translateY(150vh); 
+                transform: rotateX(20deg) translateY(160vh); 
             }
             100% {
                 /* End: 向上移動至遠方消失 */
@@ -427,7 +427,7 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <!-- 活動圖片 1 -->
                     <div class="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]">
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMCRaM_dgE5LkBXl1nLkc-6rKeJ-qnip-HDwxbinyN80qH4gYLIDP1ffVS9gxUiXKTkjjBaLdUV4yMtwRFqFj7RjD1FSzb3bu7MWhVjk9exGD2y4ZUe=w1800" 
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMm-PPrkq9ZvGPCooPCU7EK9dPvjckbLx-m920tBP6vycCwwhglzxgjBpc0E-GNfSAeyFPyl8jxu_1ORt3ZA9IQILm3kRFfLxT-P9lWhTcRlQkbcS77=w1200" 
                              alt="" 
                              class="w-full h-auto object-cover aspect-[3/2]"
                              onerror="this.onerror=null;this.src='https://placehold.co/600x400/4CAF50/FFFFFF?text=新生迎新'">
@@ -458,15 +458,16 @@
         </section>
         <!-- =========== 新增區塊 2 結束 =========== -->
 
-        <!-- 傑出校友說 (原區塊) -->
-        <section class="py-16 sm:py-24 bg-white">
+        <!-- 傑出校友感言 (原區塊) -->
+        <!-- 調整為 bg-dh-light -->
+        <section class="py-16 sm:py-24 bg-dh-light">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-dh-green">
                     傑出校友感言
                 </h2>
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- 廖明山 -->
-                    <div class="p-8 bg-dh-light rounded-2xl shadow-lg relative border-l-8 border-dh-green hover:shadow-2xl transition duration-300">
+                    <div class="p-8 bg-white rounded-2xl shadow-lg relative border-l-8 border-dh-green hover:shadow-2xl transition duration-300">
                         <!-- Quote Icon -->
                         <div class="text-dh-green text-6xl absolute top-4 left-4 opacity-20 font-serif">“</div>
                         <div class="relative z-10 pl-4">
@@ -481,13 +482,14 @@
                                     <h4 class="font-bold text-dh-dark text-lg">廖明山</h4>
                                     <p class="text-sm text-dh-green font-semibold">弘元石材董事長</p>
                                     <p class="text-xs text-gray-500 mt-0.5">第一屆東華大學傑出校友</p>
+                                    <p class="text-xs text-gray-500 mt-0.5">東華企管EMBA第1屆校友</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- 趙俊隆 -->
-                    <div class="p-8 bg-dh-light rounded-2xl shadow-lg relative border-l-8 border-dh-green hover:shadow-2xl transition duration-300">
+                    <div class="p-8 bg-white rounded-2xl shadow-lg relative border-l-8 border-dh-green hover:shadow-2xl transition duration-300">
                          <!-- Quote Icon -->
                         <div class="text-dh-green text-6xl absolute top-4 left-4 opacity-20 font-serif">“</div>
                         <div class="relative z-10 pl-4">
@@ -502,6 +504,7 @@
                                     <h4 class="font-bold text-dh-dark text-lg">趙俊隆</h4>
                                     <p class="text-sm text-dh-green font-semibold">慶譽營造、齊家興建設董事長</p>
                                     <p class="text-xs text-gray-500 mt-0.5">第三屆東華大學傑出校友</p>
+                                    <p class="text-xs text-gray-500 mt-0.5">東華企管EMBA第13屆校友</p>
                                 </div>
                             </div>
                         </div>
@@ -509,6 +512,120 @@
                 </div>
             </div>
         </section>
+
+        <!-- =========== 新增區塊 4: 常見疑問 FAQ =========== -->
+        <!-- 調整為 bg-white -->
+        <section class="py-16 sm:py-24 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-dh-dark">
+                    常見疑問 FAQ
+                </h2>
+                <div id="faq-accordion" class="space-y-4">
+                    
+                    <!-- Q&A Item 1 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-dh-dark font-bold text-lg hover:bg-dh-light transition duration-300" 
+                                data-accordion="q1" aria-expanded="false">
+                            <span>Q1：誰適合讀碩士在職專班？</span>
+                            <svg data-arrow="q1" class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div data-answer="q1" class="hidden px-6 pb-6 text-gray-700 leading-relaxed border-t border-dh-light">
+                            <p class="mb-3">
+                                如果你有幾個念頭經常浮現：
+                            </p>
+                            <ul class="list-disc list-inside space-y-1 pl-4">
+                                <li>想把工作經驗整理成一套比較系統的思考</li>
+                                <li>想為自己開一條不同的職涯可能，但還在觀望</li>
+                                <li>想認識一群同樣在職場打滾、願意一起學習的夥伴</li>
+                                <li>覺得自己需要「更新系統」，重新調整思考方式與工具</li>
+                            </ul>
+                            <p class="mt-3">
+                                那你應該可以在這個專班裡，找到值得投資的理由。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Q&A Item 2 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-dh-dark font-bold text-lg hover:bg-dh-light transition duration-300" 
+                                data-accordion="q2" aria-expanded="false">
+                            <span>Q2：學費不低，我要怎麼判斷這筆投資值不值得？</span>
+                            <svg data-arrow="q2" class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div data-answer="q2" class="hidden px-6 pb-6 text-gray-700 leading-relaxed border-t border-dh-light">
+                            <p class="mb-3">
+                                在職專班的價值多半來自三個層面：
+                            </p>
+                            <ul class="list-disc list-inside space-y-1 pl-4">
+                                <li>第一，學到系統化的知識架構，提升思辨能力。</li>
+                                <li>第二，建立長期有用的人脈。</li>
+                                <li>第三，重新整理職涯方向。</li>
+                            </ul>
+                            <p class="mt-3">
+                                升遷或加薪不保證，但帶來的觀念更新與思維轉換，往往比直接的職涯結果更關鍵。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Item 3 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-dh-dark font-bold text-lg hover:bg-dh-light transition duration-300" 
+                                data-accordion="q3" aria-expanded="false">
+                            <span>Q3：離開學校太久，我會不會跟不上？</span>
+                            <svg data-arrow="q3" class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div data-answer="q3" class="hidden px-6 pb-6 text-gray-700 leading-relaxed border-t border-dh-light">
+                            <p>
+                                很多同學一開始也覺得自己有「生鏽感」，但課堂會循序漸進，重點是理解和應用，不是背誦。再加上在職學生帶來的實務經驗，本來就比「考滿分」更重要。通常幾次課程之後就能重新找回節奏。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Item 4 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-dh-dark font-bold text-lg hover:bg-dh-light transition duration-300" 
+                                data-accordion="q4" aria-expanded="false">
+                            <span>Q4：我工作很忙，真的能兼顧上課嗎？</span>
+                            <svg data-arrow="q4" class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div data-answer="q4" class="hidden px-6 pb-6 text-gray-700 leading-relaxed border-t border-dh-light">
+                            <p>
+                                大多數在職生都有同樣的擔心。課程安排通常以「可被工作者消化」為原則，多在平日晚上或週末進行，也會有彈性調整作業時程的空間。老師也理解在職學生的壓力，只要主動溝通，通常都能協助找到平衡點。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Q&A Item 5 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-dh-dark font-bold text-lg hover:bg-dh-light transition duration-300" 
+                                data-accordion="q5" aria-expanded="false">
+                            <span>Q5：課程會不會很學術？我比較想學實務。</span>
+                            <svg data-arrow="q5" class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div data-answer="q5" class="hidden px-6 pb-6 text-gray-700 leading-relaxed border-t border-dh-light">
+                            <p>
+                                在職專班的課程通常會把理論轉成容易操作的工具，例如策略分析、顧客洞察、資料應用等。老師會用企業案例、產業趨勢與小組討論的方式來引導，確保每次上課都有「帶得走」的東西。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Q&A Item 6 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-dh-dark font-bold text-lg hover:bg-dh-light transition duration-300" 
+                                data-accordion="q6" aria-expanded="false">
+                            <span>Q6：我沒有清楚的研究方向，這樣適合報考嗎？</span>
+                            <svg data-arrow="q6" class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div data-answer="q6" class="hidden px-6 pb-6 text-gray-700 leading-relaxed border-t border-dh-light">
+                            <p>
+                                大部分同學都是進來之後才逐漸找到方向，這很正常。課堂與討論會慢慢讓你看見自己真正關心的題目，老師也會協助整理思路，方向會在過程中浮現，不需要一開始就很明確。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- =========== 新增區塊 4 結束 =========== -->
         
         <!-- 報名區塊 (Call to Action) - 調整為 Flexbox 垂直對齊 -->
         <section class="py-16 bg-dh-light">
@@ -609,6 +726,37 @@
                 }, 2000); 
 
             }, totalIntroDurationMs); 
+        });
+
+        // Add Accordion/FAQ functionality
+        document.getElementById('faq-accordion').addEventListener('click', (event) => {
+            const button = event.target.closest('button[data-accordion]');
+            if (!button) return;
+
+            const targetId = button.getAttribute('data-accordion');
+            const answer = document.querySelector(`[data-answer="${targetId}"]`);
+            const arrow = document.querySelector(`[data-arrow="${targetId}"]`);
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+            // Collapse all others
+            document.querySelectorAll('[data-accordion]').forEach(btn => {
+                if (btn !== button) {
+                    btn.setAttribute('aria-expanded', 'false');
+                    document.querySelector(`[data-answer="${btn.getAttribute('data-accordion')}"]`).classList.add('hidden');
+                    document.querySelector(`[data-arrow="${btn.getAttribute('data-accordion')}"]`).classList.remove('rotate-180');
+                }
+            });
+
+            // Toggle current
+            if (isExpanded) {
+                button.setAttribute('aria-expanded', 'false');
+                answer.classList.add('hidden');
+                arrow.classList.remove('rotate-180');
+            } else {
+                button.setAttribute('aria-expanded', 'true');
+                answer.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+            }
         });
     </script>
 
